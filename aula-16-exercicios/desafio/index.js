@@ -1,88 +1,48 @@
 
 
+// Coletar informações do usuário
+let nome = prompt("Nome Completo:")
+let tipoJogo = prompt("Tipo de jogo: IN (internacional); DO (doméstico):").toUpperCase()
+let etapaJogo = prompt("Etapa do jogo: SF (semi-final); DT (decisão de terceiro lugar); FI (final)").toUpperCase()
+let categoria = Number(prompt("Categoria: 1, 2, 3 ou 4:"))
+let quantIngressos = Number(prompt("Quantidade de ingressos:"))
 
-let nome = 'g' // prompt("Nome Completo:")
-let tipoJogo = 'in' // prompt("Tipo de jogo: IN (internacional); DO (doméstico):").toUpperCase()
-let etapaJogo = 'SF' // prompt("Etapa do jogo: SF (semi-final); DT (decisão de terceiro lugar); FI (final)").toUpperCase()
-let categoria = 1 // Number(prompt("Categoria: 1, 2, 3 ou 4:"))
-let quantIngressos = 2 // Number(prompt("Quantidade de ingressos:"))
-
+// parâmetros
+let nCategoria = categoria - 1
 let precoDolar = 5
+let moeda
 let valorIngresso
 let valorTotal
 
+// Tabela de valores dos ingressos
 const tabelaValores = {
-    "SF": [ 1320, 880, 550, 220 ]
-}
-tabelaValores[etapaJogo][categoria]
-// ingressos
-if (etapaJogo === "SF") {
-    switch (categoria) {
-        case 1:
-            valorIngresso = 1320
-            break;
-        case 2:
-            valorIngresso = 880
-            break;
-        case 3:
-            valorIngresso = 550
-            break;
-        case 4:
-            valorIngresso = 220
-            break;
-        default:
-    }
-    etapaJogo = "Semi-final"
-    valorTotal = valorIngresso * quantIngressos
+    "SF": [1320, 880, 550, 220],
+    "DT": [660, 440, 330, 170],
+    "FI": [1980, 1320, 880, 330],
 }
 
-if (etapaJogo === "DT") {
-    switch (categoria) {
-        case 1:
-            valorIngresso = 660
-            break;
-        case 2:
-            valorIngresso = 440
-            break;
-        case 3:
-            valorIngresso = 330
-            break;
-        case 4:
-            valorIngresso = 170
-            break;
-        default:
-    }
-    etapaJogo = "Terceiro Lugar"
-    valorTotal = valorIngresso * quantIngressos
+// Tabela etapas dos jogos
+const tabelaEtapaJogo = {
+    "SF": ["Semi-Final"],
+    "DT": ["Terceiro Lugar"],
+    "FI": ["Final"],
 }
 
-if (etapaJogo === "FI") {
-    switch (categoria) {
-        case 1:
-            valorIngresso = 1980
-            break;
-        case 2:
-            valorIngresso = 1320
-            break;
-        case 3:
-            valorIngresso = 880
-            break;
-        case 4:
-            valorIngresso = 330
-            break;
-        default:
-    }
-    etapaJogo = "Final"
-    valorTotal = valorIngresso * quantIngressos
-}
-
+// Verificar tipo de ingressos a serem vendidos
 if (tipoJogo === "DO") {
+    valorIngresso = tabelaValores[etapaJogo][nCategoria]
+    valorTotal = valorIngresso * quantIngressos
     tipoJogo = "Doméstico"
+    etapaJogo = tabelaEtapaJogo[etapaJogo][0]
+    moeda = "R$"
+
 } else if (tipoJogo === "IN") {
+    valorIngresso = tabelaValores[etapaJogo][nCategoria] / precoDolar
+    valorTotal = valorIngresso * quantIngressos
     tipoJogo = "Internacional"
+    etapaJogo = tabelaEtapaJogo[etapaJogo][0]
+    moeda = "U$"
 }
-
-
 
 // Imprimir no console
 console.log("---Dados da compra---")
@@ -91,9 +51,9 @@ console.log("Tipo do jogo: ", tipoJogo)
 console.log("Etapa do jogo: ", etapaJogo)
 console.log("Categoria: ", categoria)
 console.log("Quantidade de Ingressos: ", quantIngressos)
-console.log("---Valores--- ")
-console.log("Valor do ingresso: ", valorIngresso)
-console.log("Valor total: ", valorTotal)
+console.log("---Valores---")
+console.log("Valor do ingresso: ",moeda, valorIngresso)
+console.log("Valor total: ", moeda, valorTotal)
 
 
 
