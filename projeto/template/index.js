@@ -3,58 +3,100 @@
 let continuar = true
 
 const dados = [{
-	id: 1,
 	nome: "Joâo da Silva",
-	idade: 25,
+	nascimento: "01/02/1990", // 25
 	peso: 70,
-	TipoSanguineo: "AB-",
+	tipoSanguineo: "AB-",
 	ultimaDoacao: "01/01/2022",
 }, {
-	id: 2,
 	nome: "Maria Santos",
-	idade: 35,
+	nascimento: "31/12/1989", // 35
 	peso: 65,
-	TipoSanguineo: "A+",
+	tipoSanguineo: "A+",
 	ultimaDoacao: "03/02/2022",
+}, {
+	nome: "José Almeida",
+	nascimento: "27/07/1979", // 45 
+	peso: 80,
+	tipoSanguineo: "O+",
+	ultimaDoacao: "10/01/2022",
+}, {
+	nome: "Ana Oliveira",
+	nascimento: "20/05/1997", // 27
+	peso: 58,
+	tipoSanguineo: "B-",
+	ultimaDoacao: "22/04/2022",
+}, {
+	nome: "Carlos Silva",
+	nascimento: "22/08/1994", // 30
+	peso: 75,
+	tipoSanguineo: "A-",
+	ultimaDoacao: "14/03/2022",
 }]
-console.log(dados)
 
 // Função para cadastro
 function cadastrar() {
-	/* 
-		// Pedir dados do usuário
-		let nome = prompt("Informe seu nome completo:")
-		let idade = Number(prompt("Informe sua idade:"))
-		let peso = Number(prompt("Informe seu peso (somente números):"))
-		let TipoSanguineo = prompt("Informe seu tipo sanguíneo:")
-		let ultimaDoacao = prompt("Informe a data da sua última doação (DD/MM/AAAA):")
-	*/
+
+	// Pedir dados do usuário
+	const nome = prompt("Informe seu nome e sobrenome:")
+	const nascimento = prompt("Informe data de nascimento: (Data no formato dd/mm/aaaa)")
+	const peso = Number(prompt("Informe seu peso: (somente números)"))
+	const tipoSanguineo = prompt("Informe seu tipo sanguíneo:")
+	const ultimaDoacao = prompt("Informe a data da sua última doação: (Data no formato dd/mm/aaaa)")
+
 	// Armazenar os dados coletados em um objeto
-	let novosDados = {
-		id: 3,
-		nome: "José Almeida",
-		idade: 45,
-		peso: 80,
-		TipoSanguineo: "O+",
-		ultimaDoacao: "10/01/2022",
+	const novosDados = {
+		nome: nome,
+		nascimento: nascimento,
+		peso: peso,
+		tipoSanguineo: tipoSanguineo,
+		ultimaDoacao: ultimaDoacao,
 	}
 	dados.push(novosDados)
 
-	console.log("Função de cadastro")
-	console.log(dados)
+	// Apresentar mensagem de sucesso
+	console.log(`Dados cadastrados com sucesso!`)
+	console.log("-------------------------------------------")
 }
-
-
 
 // Função para listar
 function listar() {
-	console.log("Função de lista")
+
+	console.log("LISTAGEM DE DOADORES:")
+	console.log("---------------------")
+
+	// Apresentar lista no console
+	for (let cont = 0; cont < dados.length; cont++) {
+		const nome = dados[cont].nome
+		const nascimento = dados[cont].nascimento
+		const peso = dados[cont].peso
+		const tipoSanguineo = dados[cont].tipoSanguineo
+		const ultimaDoacao = dados[cont].ultimaDoacao
+		console.log(`${cont+1}) Nome: ${nome} | Data de nascimento: ${nascimento} | Peso: ${peso}kg | Tipo sanguíneo: ${tipoSanguineo} | Data da última doação: ${ultimaDoacao}`)
+	}
+	console.log("-------------------------------------------")
 }
 
 
 // Função para buscar doador por tipo sanguíneo
 function buscarTipoSanguineo() {
-	console.log("Função de busca por tipo sanguíneo")
+	const buscaSangue = prompt("Digite o tipo sanguíneo desejado:").toUpperCase()
+	
+	console.log(`RESULTADO DA BUSCA: "${buscaSangue}"`)
+	console.log("---------------------")
+
+	for (let cont = 0; cont < dados.length; cont++) {
+
+		if (buscaSangue === dados[cont].tipoSanguineo) {
+			const nome = dados[cont].nome
+			const nascimento = dados[cont].nascimento
+			const peso = dados[cont].peso
+			const tipoSanguineo = dados[cont].tipoSanguineo
+			const ultimaDoacao = dados[cont].ultimaDoacao
+
+			console.log(`${cont + 1}) Nome: ${nome} | Data de nascimento: ${nascimento} | Peso: ${peso}kg | Tipo sanguíneo: ${tipoSanguineo} | Data da última doação: ${ultimaDoacao}`)
+		} 
+	}
 }
 
 
