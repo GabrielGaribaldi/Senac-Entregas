@@ -49,7 +49,21 @@ function listar() {
 	}
 }
 
+function listar2() {
 
+	console.log("LISTAGEM DE DOADORES:")
+	console.log("---------------------")
+
+	// Apresentar lista no console
+	for (let i = 0; i < dados.length; i++) {
+		const objeto = dados[i]
+		const ordemCadastro = i++
+		console.log(`${ordemCadastro}) Nome: ${objeto.nome} | Data de nascimento: ${objeto.nascimento} | Peso: ${objeto.peso}kg | Tipo sanguíneo: ${objeto.tipoSanguineo} | Data da última doação: ${objeto.ultimaDoacao}`)
+	}
+	console.log("-------------------------------------------")
+}
+
+listar2()
 
 // Função para buscar doador por tipo sanguíneo
 function buscarTipoSanguineo() {
@@ -75,13 +89,7 @@ function buscarTipoSanguineo() {
 }
 
 
-for (let dado of dados) {
 
-	if (resposta === dado.sangue) {
-		const nome = dado.nome
-
-	}
-}
 
 // if (possuiCadastro === false) {
 //	console.log(`Nenhum resultado encontrado para "${buscaSangue}".`)
@@ -108,4 +116,3 @@ function buscarUltimaDoacao() {
 	}
 }
 
-buscarUltimaDoacao()

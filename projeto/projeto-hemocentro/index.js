@@ -4,31 +4,31 @@ let continuar = true
 
 const dados = [{
 	nome: "Joâo da Silva",
-	nascimento: "01/02/1990", // 25
+	nascimento: "01/02/1990",
 	peso: 70,
 	tipoSanguineo: "AB-",
-	ultimaDoacao: "01/01/2022",
+	ultimaDoacao: "01/01/2021",
 }, {
 	nome: "Maria Santos",
-	nascimento: "31/12/1989", // 35
+	nascimento: "31/12/1989",
 	peso: 65,
 	tipoSanguineo: "A+",
 	ultimaDoacao: "03/02/2022",
 }, {
 	nome: "José Almeida",
-	nascimento: "27/07/1979", // 45 
+	nascimento: "27/07/1979",
 	peso: 80,
 	tipoSanguineo: "O+",
-	ultimaDoacao: "10/01/2022",
+	ultimaDoacao: "10/01/2018",
 }, {
 	nome: "Ana Oliveira",
-	nascimento: "20/05/1997", // 27
+	nascimento: "20/05/1997",
 	peso: 58,
 	tipoSanguineo: "B-",
 	ultimaDoacao: "22/04/2022",
 }, {
 	nome: "Carlos Silva",
-	nascimento: "22/08/1994", // 30
+	nascimento: "22/08/1994",
 	peso: 75,
 	tipoSanguineo: "A-",
 	ultimaDoacao: "14/03/2022",
@@ -62,19 +62,16 @@ function cadastrar() {
 // Função para listar
 function listar() {
 
-	console.log("LISTAGEM DE DOADORES:")
-	console.log("---------------------")
+	console.log("LISTA DE DOADORES:")
+	console.log("# | NOME E SOBRENOME | ANIVERSÁRIO | PESO | TIPO SANGUÍNEO | ÚLTIMA DOAÇÃO")
 
 	// Apresentar lista no console
-	for (let cont = 0; cont < dados.length; cont++) {
-		const nome = dados[cont].nome
-		const nascimento = dados[cont].nascimento
-		const peso = dados[cont].peso
-		const tipoSanguineo = dados[cont].tipoSanguineo
-		const ultimaDoacao = dados[cont].ultimaDoacao
-		const ordemCadastro = cont + 1
-		console.log(`${ordemCadastro}) Nome: ${nome} | Data de nascimento: ${nascimento} | Peso: ${peso}kg | Tipo sanguíneo: ${tipoSanguineo} | Data da última doação: ${ultimaDoacao}`)
+	for (let i = 0; i < dados.length; i++) {
+		const objeto = dados[i]
+		const ordemCadastro = i + 1
+		console.log(`${ordemCadastro} | ${objeto.nome} | ${objeto.nascimento} | ${objeto.peso}kg | ${objeto.tipoSanguineo} | ${objeto.ultimaDoacao}`)
 	}
+	console.log(`Dados listados com sucesso! ${dados.length} doadores encontrados.`)
 	console.log("-------------------------------------------")
 }
 
@@ -82,57 +79,54 @@ function listar() {
 // Função para buscar doador por tipo sanguíneo
 function buscarTipoSanguineo() {
 	const buscaSangue = prompt("Digite o tipo sanguíneo desejado:").toUpperCase()
-	
+	let cont = 0
+
 	console.log("BUSCA POR TIPO SANGUÍNEO")
 	console.log(`RESULTADO DA BUSCA: "${buscaSangue}"`)
-	console.log("---------------------")
+	console.log("# | NOME E SOBRENOME | ANIVERSÁRIO | PESO | TIPO SANGUÍNEO | ÚLTIMA DOAÇÃO")
 
-	for (let cont = 0; cont < dados.length; cont++) {
+	for (let i = 0; i < dados.length; i++) {
 
-		if (buscaSangue === dados[cont].tipoSanguineo) {
-			const nome = dados[cont].nome
-			const nascimento = dados[cont].nascimento
-			const peso = dados[cont].peso
-			const tipoSanguineo = dados[cont].tipoSanguineo
-			const ultimaDoacao = dados[cont].ultimaDoacao
-			const ordemCadastro = cont + 1
-
-			console.log(`${ordemCadastro}) Nome: ${nome} | Data de nascimento: ${nascimento} | Peso: ${peso}kg | Tipo sanguíneo: ${tipoSanguineo} | Data da última doação: ${ultimaDoacao}`)
-		} 
+		if (buscaSangue === dados[i].tipoSanguineo) {
+			const objeto = dados[i]
+			const ordemCadastro = i + 1
+			cont = cont + 1
+			console.log(`${ordemCadastro} | ${objeto.nome} | ${objeto.nascimento} | ${objeto.peso}kg | ${objeto.tipoSanguineo} | ${objeto.ultimaDoacao}`)
+		}
 	}
+	console.log(`Dados listados com sucesso! ${cont} doadores encontrados.`)
+	console.log("-------------------------------------------")
 }
 
 
 // Função para buscar doador por data da última doação
 function buscarUltimaDoacao() {
-	const buscaDoacao = prompt("Digite a data desejada (dd/mm/aaaa):")
-	
+	const buscaDoacao = prompt("Digite o ano desejado (aaaa):")
+	let cont = 0
+
 	console.log("BUSCA POR DATA DE ÚLTIMA DOAÇÃO")
 	console.log(`RESULTADO DA BUSCA: "${buscaDoacao}"`)
-	console.log("---------------------")
+	console.log("# | NOME E SOBRENOME | ANIVERSÁRIO | PESO | TIPO SANGUÍNEO | ÚLTIMA DOAÇÃO")
 
-	for (let cont = 0; cont < dados.length; cont++) {
+	for (let i = 0; i < dados.length; i++) {
+		const ultimaDoacao = dados[i].ultimaDoacao
 
-		if (buscaDoacao === dados[cont].ultimaDoacao) {
-			const nome = dados[cont].nome
-			const nascimento = dados[cont].nascimento
-			const peso = dados[cont].peso
-			const tipoSanguineo = dados[cont].tipoSanguineo
-			const ultimaDoacao = dados[cont].ultimaDoacao
-			const ordemCadastro = cont + 1
-
-			console.log(`${ordemCadastro}) Nome: ${nome} | Data de nascimento: ${nascimento} | Peso: ${peso}kg | Tipo sanguíneo: ${tipoSanguineo} | Data da última doação: ${ultimaDoacao}`)
-		} 
+		if (ultimaDoacao.includes(buscaDoacao) === true) {
+			const objeto = dados[i]
+			const ordemCadastro = i + 1
+			cont = cont + 1
+			console.log(`${ordemCadastro} | ${objeto.nome} | ${objeto.nascimento} | ${objeto.peso}kg | ${objeto.tipoSanguineo} | ${objeto.ultimaDoacao}`)
+		}
 	}
+	console.log(`Dados listados com sucesso! ${cont} doadores encontrados.`)
+	console.log("-------------------------------------------")
 }
-
 
 // Função para sair
 function sair() {
 	continuar = false
 	console.log("Tchau! Para reiniciar, atualize a aba do navegador.")
 }
-
 
 // Loop para perguntar ao usuário
 while (continuar === true) {
