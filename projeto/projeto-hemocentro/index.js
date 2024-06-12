@@ -34,6 +34,50 @@ const dados = [{
 	ultimaDoacao: "14/03/2022",
 }]
 
+// Função para formatar os dados
+function formatarDados(objeto, indice) {
+	// Criar string vazia
+	let string = ""
+
+	// Verificar se há índice
+	if (indice !== "") {
+		// Verificar como será o peso
+		const peso = isNaN(objeto.peso) ? objeto.peso : objeto.peso + "kg"
+
+		// Criar objeto formatado
+		const of = {
+			indice: indice.toString().padEnd(3, " "),
+			nome: objeto.nome.padEnd(20, " "),
+			nascimento: objeto.nascimento.padEnd(13, " "),
+			peso: peso.padEnd(6, " "),
+			tipoSanguineo: objeto.tipoSanguineo.padEnd(6, " "),
+			ultimaDoacao: objeto.ultimaDoacao,
+		}
+
+		// Inserir as informações na string
+		string = `${of.indice} | ${of.nome} | ${of.nascimento} | ${of.peso} | ${of.tipoSanguineo} | ${of.ultimaDoacao}`
+	}
+	else {
+		// Inserir as informações na string
+		string = `Nome: ${objeto.nome} | Nascimento: ${objeto.nascimento} | Peso: ${objeto.peso}kg | Tipo: ${objeto.tipoSanguineo} | Última doação: ${objeto.ultimaDoacao}`
+	}
+	// Retornar string formatada
+	return string
+}
+
+// Função para formatar os dados
+function formatarCabecalho() {
+	// Montar cabeçalho da lista
+	const cabecalho = {
+		nome: "NOME E SOBRENOME",
+		nascimento: "NASCIMENTO",
+		peso: "PESO",
+		tipoSanguineo: "TIPO",
+		ultimaDoacao: "ÚLTIMA DOAÇÃO",
+	}
+	return formatarDados(cabecalho, "#")
+}
+
 // Função para cadastro
 function cadastrar() {
 
@@ -55,24 +99,26 @@ function cadastrar() {
 	dados.push(novosDados)
 
 	// Apresentar mensagem de sucesso
+	console.log(formatarDados(novosDados, ""))
 	console.log(`Dados cadastrados com sucesso!`)
-	console.log("-------------------------------------------")
+	console.log("----------------------------------------------------------------------------")
 }
 
 // Função para listar
 function listar() {
 
 	console.log("LISTA DE DOADORES:")
-	console.log("# | NOME E SOBRENOME | ANIVERSÁRIO | PESO | TIPO SANGUÍNEO | ÚLTIMA DOAÇÃO")
+	console.log(formatarCabecalho())
+	//console.log("# | NOME E SOBRENOME | ANIVERSÁRIO | PESO | TIPO SANGUÍNEO | ÚLTIMA DOAÇÃO")
 
 	// Apresentar lista no console
 	for (let i = 0; i < dados.length; i++) {
 		const objeto = dados[i]
 		const ordemCadastro = i + 1
-		console.log(`${ordemCadastro} | ${objeto.nome} | ${objeto.nascimento} | ${objeto.peso}kg | ${objeto.tipoSanguineo} | ${objeto.ultimaDoacao}`)
+		console.log(formatarDados(objeto, ordemCadastro))
 	}
-	console.log(`Dados listados com sucesso! ${dados.length} doadores encontrados.`)
-	console.log("-------------------------------------------")
+	console.log(`Dados listados com sucesso! ${dados.length} doador(es) encontrado(s).`)
+	console.log("----------------------------------------------------------------------------")
 }
 
 
@@ -83,19 +129,19 @@ function buscarTipoSanguineo() {
 
 	console.log("BUSCA POR TIPO SANGUÍNEO")
 	console.log(`RESULTADO DA BUSCA: "${buscaSangue}"`)
-	console.log("# | NOME E SOBRENOME | ANIVERSÁRIO | PESO | TIPO SANGUÍNEO | ÚLTIMA DOAÇÃO")
+	console.log(formatarCabecalho())
 
 	for (let i = 0; i < dados.length; i++) {
 
 		if (buscaSangue === dados[i].tipoSanguineo) {
 			const objeto = dados[i]
 			const ordemCadastro = i + 1
-			cont = cont + 1
-			console.log(`${ordemCadastro} | ${objeto.nome} | ${objeto.nascimento} | ${objeto.peso}kg | ${objeto.tipoSanguineo} | ${objeto.ultimaDoacao}`)
+			cont = cont + 1 // Para contar o número de doadores encontrados
+			console.log(formatarDados(objeto, ordemCadastro))
 		}
 	}
-	console.log(`Dados listados com sucesso! ${cont} doadores encontrados.`)
-	console.log("-------------------------------------------")
+	console.log(`Dados listados com sucesso! ${cont} doador(es) encontrado(s).`)
+	console.log("----------------------------------------------------------------------------")
 }
 
 
@@ -106,7 +152,7 @@ function buscarUltimaDoacao() {
 
 	console.log("BUSCA POR DATA DE ÚLTIMA DOAÇÃO")
 	console.log(`RESULTADO DA BUSCA: "${buscaDoacao}"`)
-	console.log("# | NOME E SOBRENOME | ANIVERSÁRIO | PESO | TIPO SANGUÍNEO | ÚLTIMA DOAÇÃO")
+	console.log(formatarCabecalho())
 
 	for (let i = 0; i < dados.length; i++) {
 		const ultimaDoacao = dados[i].ultimaDoacao
@@ -114,12 +160,12 @@ function buscarUltimaDoacao() {
 		if (ultimaDoacao.includes(buscaDoacao) === true) {
 			const objeto = dados[i]
 			const ordemCadastro = i + 1
-			cont = cont + 1
-			console.log(`${ordemCadastro} | ${objeto.nome} | ${objeto.nascimento} | ${objeto.peso}kg | ${objeto.tipoSanguineo} | ${objeto.ultimaDoacao}`)
+			cont = cont + 1 // Para contar o número de doadores encontrados
+			console.log(formatarDados(objeto, ordemCadastro))
 		}
 	}
-	console.log(`Dados listados com sucesso! ${cont} doadores encontrados.`)
-	console.log("-------------------------------------------")
+	console.log(`Dados listados com sucesso! ${cont} doador(es) encontrado(s).`)
+	console.log("----------------------------------------------------------------------------")
 }
 
 // Função para sair
@@ -132,7 +178,7 @@ function sair() {
 while (continuar === true) {
 	// Formatar pergunta
 	let pergunta = "===== SISTEMA DE CADASTRO DE DOADORES DE SANGUE =====\n"
-	pergunta += "-----------------------------------------------------\n"
+	pergunta += "-----------------------------------------------------------------------------\n"
 	pergunta += "Escolha uma opção:\n"
 	pergunta += "1. Cadastrar doador\n"
 	pergunta += "2. Listar doadores\n"
