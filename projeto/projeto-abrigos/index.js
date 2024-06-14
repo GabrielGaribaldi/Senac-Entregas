@@ -33,12 +33,51 @@ const dados = [{
 	cidade: "São Leopoldo",
 }]
 
-console.log(dados)
+// Função para formatar os dados
+function formatarDados(objeto, indice) {
+	// Criar string vazia
+	let string = ""
 
+	// Verificar se há índice
+	if (indice !== "") {
+
+		// Criar objeto formatado
+		const of = {
+			indice: indice.toString().padEnd(3, " "),
+			nome: objeto.nome.padEnd(20, " "),
+			endereco: objeto.endereco.padEnd(45, " "),
+			telefone: objeto.telefone.padEnd(15, " "),
+			capacidade: objeto.capacidade.toString().padEnd(10, " "),
+			cidade: objeto.cidade,
+		}
+
+		// Inserir as informações na string
+		string = `${of.indice} | ${of.nome} | ${of.endereco} | ${of.telefone} | ${of.capacidade} | ${of.cidade}`
+	}
+	else {
+		// Inserir as informações na string
+		string = `Nome: ${objeto.nome} | Endereco: ${objeto.endereco} | Telefone: ${objeto.telefone}kg | Capacidade: ${objeto.capacidade} | Cidade: ${objeto.cidade}`
+	}
+	// Retornar string formatada
+	return string
+}
+
+// Função para formatar os dados
+function formatarCabecalho() {
+	// Montar cabeçalho da lista
+	const cabecalho = {
+		nome: "NOME E SOBRENOME",
+		endereco: "ENDEREÇO",
+		telefone: "TELEFONE",
+		capacidade: "CAPACIDADE",
+		cidade: "CIDADE",
+	}
+	return formatarDados(cabecalho, "#")
+}
 
 // Função para cadastro
 function cadastrar() {
-
+	console.clear()
 	const nome = prompt("Informe o nome do abrigo:")
 	const endereco = prompt("Informe o endereço do abrigo:")
 	const telefone = prompt("Informe o telefone do abrigo: (99) 9999-9999")
@@ -53,37 +92,48 @@ function cadastrar() {
 		cidade: cidade,
 	}
 	dados.push(novosDados)
+	// Apresentar mensagem de sucesso
+	console.log(formatarDados(novosDados, ""))
+	console.log(`Dados cadastrados com sucesso!`)
+	console.log("----------------------------------------------------------------------------")
 }
 
 
 // Função para listar
 function listar() {
+	console.clear()
 	console.log("LISTA DE ABRIGOS:")
+	console.log(formatarCabecalho())
 	for (const [indice, objeto] of dados.entries()) {
-		console.log(`${indice + 1} | Nome: ${objeto.nome} | Endereço: ${objeto.endereco} | Telefone: ${objeto.telefone}kg | Capacidade: ${objeto.capacidade} | Cidade: ${objeto.cidade}`)
-
+		const codigo = indice + 1
+		console.log(formatarDados(objeto, codigo))
 	}
+	console.log(`Dados listados com sucesso! ${dados.length} abrigo(s) encontrado(s).`)
+	console.log("----------------------------------------------------------------------------")
 }
 
 
 // Função para buscar
 function buscar() {
+	console.clear()
 	const busca = prompt("Qual cidade você está?").toLowerCase()
 	let cont = 0
-
 	console.log("BUSCA POR CIDADE")
 	console.log(`RESULTADO DA BUSCA: "${busca}"`)
+
+	console.log(formatarCabecalho())
 
 	for (const [indice, objeto] of dados.entries()) {
 		let cidade = objeto.cidade.toLowerCase()
 		if (cidade.includes(busca) === true) {
-			console.log(`${indice + 1} | Nome: ${objeto.nome} | Endereço: ${objeto.endereco} | Telefone: ${objeto.telefone}kg | Capacidade: ${objeto.capacidade} | Cidade: ${objeto.cidade}`)
 			cont = cont + 1
+			const codigo = indice + 1
+			console.log(formatarDados(objeto, codigo))
 		}
+
 	}
-	if (cont < 1) {
-		console.log("Nenhum resultado encontrado!")
-	}
+	console.log(`Dados listados com sucesso! ${cont} abrigo(s) encontrado(s).`)
+	console.log("----------------------------------------------------------------------------")
 }
 
 
